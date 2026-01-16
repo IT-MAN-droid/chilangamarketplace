@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chilanga North University Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Chilanga Marketplace</h1>
+            </div>
+            <nav class="nav">
+                <button id="loginBtn" class="btn btn-outline">Login</button>
+                <button id="registerBtn" class="btn btn-primary">Register</button>
+                <button id="logoutBtn" class="btn btn-outline" style="display: none;">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Welcome Section -->
+        <section class="welcome" id="welcomeSection">
+            <div class="container">
+                <h2>Welcome to Chilanga North University Marketplace</h2>
+                <p>Buy and sell items with fellow students using mobile payments</p>
+                <div class="categories">
+                    <button class="category-btn active" data-category="all">All Items</button>
+                    <button class="category-btn" data-category="tomatoes">Tomatoes</button>
+                    <button class="category-btn" data-category="vegetables">Vegetables</button>
+                    <button class="category-btn" data-category="clothes">Clothes</button>
+                    <button class="category-btn" data-category="electronics">Electronics</button>
+                    <button class="category-btn" data-category="other">Other</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="products" id="productsSection">
+            <div class="container">
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- User Dashboard -->
+        <section class="dashboard" id="dashboardSection" style="display: none;">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h2>My Dashboard</h2>
+                    <button id="addProductBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+                
+                <div class="dashboard-tabs">
+                    <button class="tab-btn active" data-tab="my-products">My Products</button>
+                    <button class="tab-btn" data-tab="my-transactions">My Transactions</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="my-products" class="tab-pane active">
+                        <div class="products-grid" id="myProductsGrid">
+                            <!-- User's products will be loaded here -->
+                        </div>
+                    </div>
+                    <div id="my-transactions" class="tab-pane">
+                        <div class="transactions-list" id="transactionsList">
+                            <!-- User's transactions will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginStudentId">Student ID:</label>
+                    <input type="text" id="loginStudentId" placeholder="e.g., CNU001" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regStudentId">Student ID:</label>
+                    <input type="text" id="regStudentId" placeholder="e.g., CNU001" required>
+                    <small class="form-hint">Your unique university student ID</small>
+                </div>
+                <div class="form-group">
+                    <label for="regName">Full Name:</label>
+                    <input type="text" id="regName" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Phone Number:</label>
+                    <input type="tel" id="regPhone" placeholder="+260977123456" required>
+                    <small class="form-hint">Used for mobile money transactions</small>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password:</label>
+                    <input type="password" id="regPassword" placeholder="Minimum 6 characters" required minlength="6">
+                    <small class="form-hint">At least 6 characters</small>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password:</label>
+                    <input type="password" id="regConfirmPassword" placeholder="Re-enter your password" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                <div class="form-footer">
+                    Already have an account? <a href="#" id="switchToLogin">Login here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Product</h2>
+            <form id="addProductForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="productTitle">Product Title:</label>
+                    <input type="text" id="productTitle" placeholder="e.g., Fresh Tomatoes" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description:</label>
+                    <textarea id="productDescription" rows="3" placeholder="Describe your product..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price (ZMW):</label>
+                    <input type="number" id="productPrice" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Category:</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="tomatoes">Tomatoes</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="clothes">Clothes</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productPhone">Your Phone Number:</label>
+                    <input type="tel" id="productPhone" placeholder="+260977123456" required>
+                    <small class="form-hint">Buyers will use this to send payment</small>
+                </div>
+                <div class="form-group">
+                    <label for="productImage">Product Image (optional):</label>
+                    <input type="file" id="productImage" accept="image/*">
+                    <small class="form-hint">Max 5MB, images only</small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Buy Product Modal -->
+    <div id="buyProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Buy Product</h2>
+            <div id="buyProductInfo"></div>
+            <form id="buyProductForm">
+                <div class="form-group">
+                    <label for="buyerPhone">Your Phone Number:</label>
+                    <input type="tel" id="buyerPhone" placeholder="+260977123456" required>
+                    <small class="form-hint">For transaction confirmation</small>
+                </div>
+                <div class="payment-info">
+                    <h3><i class="fas fa-mobile-alt"></i> Payment Instructions</h3>
+                    <p>Send money to the seller's phone number using your mobile money service (Airtel Money, MTN Mobile Money, etc.)</p>
+                    <div class="seller-info">
+                        <p><strong>Seller Phone:</strong> <span id="sellerPhoneDisplay"></span></p>
+                        <p><strong>Amount:</strong> ZMW <span id="amountDisplay"></span></p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Confirm Purchase</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Just a sec...</p>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
